@@ -1,0 +1,96 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spms"
+version = "1.0.0"
+description = "Spherical Projection Molecular Surface (SPMS) descriptors for molecular conformers"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Li-Cheng Xu", email = "licheng_xu@zju.edu.cn"},
+]
+maintainers = [
+    {name = "Li-Cheng Xu", email = "licheng_xu@zju.edu.cn"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+keywords = ["chemistry", "molecular-descriptors", "computational-chemistry", "conformers", "spms"]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.20.0",
+    "ase>=3.19.1",
+    "rdkit",
+    "click>=8.0.0",
+    "rich>=10.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "black>=22.0",
+    "isort>=5.0",
+    "flake8>=4.0",
+]
+visualization = [
+    "matplotlib>=3.0.0",
+    "plotly>=5.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/licheng-xu-echo/SPMS"
+Repository = "https://github.com/licheng-xu-echo/SPMS"
+Documentation = "https://github.com/licheng-xu-echo/SPMS"
+"Bug Tracker" = "https://github.com/licheng-xu-echo/SPMS/issues"
+
+[project.scripts]
+spms = "spms.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["spms*"]
+
+[tool.setuptools.package-data]
+spms = ["*.txt", "*.md", "data/*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["spms"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["spms"]
+omit = ["*/tests/*", "*/test_*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
